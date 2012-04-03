@@ -22,20 +22,21 @@ public class NewtonInterpol {
 		{
 			for(int i = 0 ; i < nbPoint - j ; i++)
 			{
-				valeur[i][j] = (valeur[i+1][j-1] - valeur[i][j-1])/(points.get(j+1).getX() - points.get(i).getX());
+				valeur[i][j] = (valeur[i+1][j-1] - valeur[i][j-1])/(points.get(j+i).getX() - points.get(i).getX());
 			}
 		}
 		
 		for(int i = 0 ; i < nbPoint ; i++)
 		{
 			coef[i] = valeur[0][i];
+			//System.out.println("a" + i + " = " + coef[i]);
 		}
 		
 		List<Point> pointsPoly = new ArrayList<Point>();
 		
 		for( int i = 0 ; i < 5; i++)
 		{
-			pointsPoly.get(i).x = i;
+			pointsPoly.add(new Point(i,0));
 			
 			double Somme = 0;
 			
