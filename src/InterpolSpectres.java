@@ -25,7 +25,7 @@ public class InterpolSpectres
 			List<Point> freqPoints = new ArrayList<Point>();
 			for(int j = 0; j < spectres.size() ; j++)
 			{
-				freqPoints.add(new Point(j,spectres.get(j).getAmplitude(i)));
+				freqPoints.add(new Point(j*10666,spectres.get(j).getAmplitude(i)));
 			}
 			points.add(freqPoints);
 		}

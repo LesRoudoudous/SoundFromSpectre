@@ -35,6 +35,8 @@ public class Home extends JFrame implements ITableauFrequenceValue
 	{
 		InterpolSpectres interpol = new InterpolSpectres();
 		List<Spectre> interpoledSPectres = interpol.getInterpolledSpectres(spectres);
+		SoundPlayer player = new SoundPlayer();
+		player.playSpectres(interpoledSPectres);
 	}
 
 	private void build(){
