@@ -20,7 +20,7 @@ public class SoundPlayer
 	int channels = 1;
     int bytesPerSamp = 2;
     float sampleRate = 16000.0F;
-	private int kSampleSize = 8;
+	private int kSampleSize = 16;
 	private boolean kSigned = true;
 	private boolean kBigEndian = true;
 	
@@ -60,18 +60,32 @@ public class SoundPlayer
 
 	    int byteLength = audioData.length;
 	    int sampLength = byteLength/bytesPerSamp;
-	    System.out.println(byteLength + " - " + shortBuffer.capacity());
-	    for(int i = 0; i < spectres.size() ; i++)
+	    for(int i = 0; i <spectres.size() ; i++)
 	    {
 	        Spectre spectre = spectres.get(i);
 	        double time = i/sampleRate;
 	        double sinValue = 0;
+	        double freq = 32.0;
 	        for(int j = 0 ; j < spectre.getNbFreq() ; j++)
 	        {
-	        	  sinValue += spectre.getAmplitude(j)*Math.cos(2*Math.PI*Math.pow(2, (j+6))*time);
+	        	//System.out.println("2 * " + Math.PI + " * " + freq + " * " + i + " / 16000 = " + (2*Math.PI*freq*i)/16000);
+	        	  sinValue += (float)((float)spectre.getAmplitude(j)/127.0)*Math.sin((2*Math.PI*freq*time));
+	        	//  System.out.println(sinValue);
+	        	  freq *= 2;
 	        }
-	        shortBuffer.put((short)sinValue);
-	     }  
+	        sinValue = sinValue / 9.0;
+	        
+	        shortBuffer.put((short)(32000*sinValue));
+	     } 
+	   /* for(int cnt = 0; cnt < sampLength; cnt++){
+	        double time = cnt/sampleRate;
+	        double freq = 950.0;//arbitrary frequency
+	        double sinValue =
+	          (Math.sin(2*Math.PI*freq*time) +
+	          Math.sin(2*Math.PI*(freq/1.8)*time) +
+	          Math.sin(2*Math.PI*(freq/1.5)*time))/3.0;
+	        shortBuffer.put((short)(16000*sinValue));
+	      }*/
 	}
 	
 	class ListenThread extends Thread

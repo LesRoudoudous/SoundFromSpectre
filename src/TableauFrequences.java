@@ -152,10 +152,10 @@ public class TableauFrequences extends JPanel implements ActionListener
 		
 		for(int i = 0; i < 9 ; i++)
 		{
-			NumericTextField t1FreqField = new NumericTextField();
-			NumericTextField t2FreqField = new NumericTextField();
-			NumericTextField t3FreqField = new NumericTextField();
-			NumericTextField t4FreqField = new NumericTextField();
+			NumericTextField t1FreqField = new NumericTextField((i == 3) ? "127" :"0",4);
+			NumericTextField t2FreqField = new NumericTextField((i == 3) ? "127" :"0",4);
+			NumericTextField t3FreqField = new NumericTextField((i == 3) ? "127" :"0",4);
+			NumericTextField t4FreqField = new NumericTextField((i == 3) ? "127" :"0",4);
 			
 			c.gridx = i+1;
 			c.gridy = 2;
