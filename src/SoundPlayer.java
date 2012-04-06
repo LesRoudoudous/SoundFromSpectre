@@ -9,13 +9,16 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
-
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class SoundPlayer 
 {
 	private AudioFormat audioFormat;
 	private AudioInputStream audioInputStream;
 	private SourceDataLine sourceDataLine;
+	private Home parent;
 	
 	int channels = 1;
     int bytesPerSamp = 2;
@@ -28,9 +31,10 @@ public class SoundPlayer
 	
 	List<Spectre> spectres;
 	
-	public void playSpectres(List<Spectre> spectres)
+	public void playSpectres(Home parent,List<Spectre> spectres)
 	{
 		this.spectres = spectres;
+		this.parent = parent;
 		getSyntheticData();
 		play();
 	}
@@ -44,6 +48,14 @@ public class SoundPlayer
 	        DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
 
 	        sourceDataLine = (SourceDataLine)AudioSystem.getLine(dataLineInfo);
+	        
+	       /* SingleWaveformPanel waveformPanel= new SingleWaveformPanel(new AudioInfo(audioInputStream), 0);
+	        waveformPanel.setPreferredSize(new  Dimension(800,300));
+	        parent.getCourbePanel().removeAll();
+	        parent.getCourbePanel().add(waveformPanel);
+	        parent.pack();
+	        parent.repaint();*/
+	        
 	        new ListenThread().start();
 	    }
 	 	catch (Exception e) 
@@ -68,24 +80,20 @@ public class SoundPlayer
 	        double freq = 32.0;
 	        for(int j = 0 ; j < spectre.getNbFreq() ; j++)
 	        {
-	        	//System.out.println("2 * " + Math.PI + " * " + freq + " * " + i + " / 16000 = " + (2*Math.PI*freq*i)/16000);
 	        	  sinValue += (float)((float)spectre.getAmplitude(j)/127.0)*Math.sin((2*Math.PI*freq*time));
-	        	//  System.out.println(sinValue);
 	        	  freq *= 2;
 	        }
 	        sinValue = sinValue / 9.0;
 	        
 	        shortBuffer.put((short)(32000*sinValue));
 	     } 
-	   /* for(int cnt = 0; cnt < sampLength; cnt++){
-	        double time = cnt/sampleRate;
-	        double freq = 950.0;//arbitrary frequency
-	        double sinValue =
-	          (Math.sin(2*Math.PI*freq*time) +
-	          Math.sin(2*Math.PI*(freq/1.8)*time) +
-	          Math.sin(2*Math.PI*(freq/1.5)*time))/3.0;
-	        shortBuffer.put((short)(16000*sinValue));
-	      }*/
+	    
+	    SingleWaveformPanel waveform = new SingleWaveformPanel(shortBuffer);
+	    waveform.setPreferredSize(new  Dimension(800,400));
+        parent.getCourbePanel().removeAll();
+        parent.getCourbePanel().add(waveform);
+        parent.pack();
+        parent.repaint();
 	}
 	
 	class ListenThread extends Thread
