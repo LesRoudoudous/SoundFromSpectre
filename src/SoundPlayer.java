@@ -27,7 +27,7 @@ public class SoundPlayer
 	private boolean kSigned = true;
 	private boolean kBigEndian = true;
 	
-	private byte audioData[] = new byte[16000*4];
+	private byte audioData[] = new byte[16000*6];
 	
 	List<Spectre> spectres;
 	

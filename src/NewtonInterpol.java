@@ -34,7 +34,7 @@ public class NewtonInterpol {
 		
 		List<Point> pointsPoly = new ArrayList<Point>();
 		
-		for( int i = 0 ; i < 16000*2; i++)
+		for( int i = 0 ; i < 16000*3; i++)
 		{
 			pointsPoly.add(new Point(i,0));
 			
