@@ -9,8 +9,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 public class SoundPlayer 
@@ -70,8 +68,6 @@ public class SoundPlayer
 	    ByteBuffer byteBuffer = ByteBuffer.wrap(audioData);
 	    ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
 
-	    int byteLength = audioData.length;
-	    int sampLength = byteLength/bytesPerSamp;
 	    for(int i = 0; i <spectres.size() ; i++)
 	    {
 	        Spectre spectre = spectres.get(i);
@@ -80,7 +76,7 @@ public class SoundPlayer
 	        double freq = 32.0;
 	        for(int j = 0 ; j < spectre.getNbFreq() ; j++)
 	        {
-	        	  sinValue += (float)((float)spectre.getAmplitude(j)/127.0)*Math.sin((2*Math.PI*freq*time));
+	        	  sinValue += (float)((float)spectre.getAmplitude(j)/100.0)*Math.sin((2*Math.PI*freq*time));
 	        	  freq *= 2;
 	        }
 	        sinValue = sinValue / 9.0;
