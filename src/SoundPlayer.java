@@ -19,11 +19,10 @@ public class SoundPlayer
 	private Home parent;
 	
 	int channels = 1;
-    int bytesPerSamp = 2;
     float sampleRate = 16000.0F;
-	private int kSampleSize = 16;
-	private boolean kSigned = true;
-	private boolean kBigEndian = true;
+	private int sampleSize = 16;
+	private boolean signed = true;
+	private boolean bigEndian = true;
 	
 	private byte audioData[] = new byte[16000*6];
 	
@@ -41,18 +40,11 @@ public class SoundPlayer
 	{
 		try{
 	        InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
-	        audioFormat = new AudioFormat(sampleRate, kSampleSize, channels, kSigned, kBigEndian);
+	        audioFormat = new AudioFormat(sampleRate, sampleSize, channels, signed, bigEndian);
 	        audioInputStream = new AudioInputStream( byteArrayInputStream, audioFormat, audioData.length/audioFormat.getFrameSize());
 	        DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
 
 	        sourceDataLine = (SourceDataLine)AudioSystem.getLine(dataLineInfo);
-	        
-	       /* SingleWaveformPanel waveformPanel= new SingleWaveformPanel(new AudioInfo(audioInputStream), 0);
-	        waveformPanel.setPreferredSize(new  Dimension(800,300));
-	        parent.getCourbePanel().removeAll();
-	        parent.getCourbePanel().add(waveformPanel);
-	        parent.pack();
-	        parent.repaint();*/
 	        
 	        new ListenThread().start();
 	    }
@@ -79,9 +71,10 @@ public class SoundPlayer
 	        	  sinValue += (float)((float)spectre.getAmplitude(j)/100.0)*Math.sin((2*Math.PI*freq*time));
 	        	  freq *= 2;
 	        }
-	        sinValue = sinValue / 9.0;
+	        sinValue = sinValue / (float)spectre.getNbFreq();
 	        
-	        shortBuffer.put((short)(32000*sinValue));
+	       shortBuffer.put((short)(32767*sinValue));
+
 	     } 
 	    
 	    SingleWaveformPanel waveform = new SingleWaveformPanel(shortBuffer);

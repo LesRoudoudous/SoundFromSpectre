@@ -49,13 +49,10 @@ public class SingleWaveformPanel extends JPanel
     	double xScaleFactor = (double)((double)getWidth() / (double)bufCap);
     	double yScaleFactor = (double)((double)(getHeight() / 2) / getMaxValue());
     	
-    	System.out.println(getWidth() + " / " + bufCap + " = " + xScaleFactor);
-    	System.out.println("(" + getHeight() + " / 2) / " + getMaxValue() + " = " + yScaleFactor);
-    	
     	int oldX = 0;
         int oldY = (int)((getHeight() / 2) - (shortBuffer.get(0) * yScaleFactor));
 
-        for(int i = 0 ; i < bufCap ; i++)
+        for(int i = 1 ; i < bufCap ; i++)
         {
         	int X = (int)(i * xScaleFactor);
             int Y = (int)((getHeight() / 2) - (shortBuffer.get(i) * yScaleFactor));

@@ -12,8 +12,6 @@ public class InterpolSpectres
 		List<Spectre> interpolledSpectres = getSpectresFromCourbes(courbes);
 		return interpolledSpectres;
 	}
-	
-	
 
 	private List<List<Point>> getFreqPoints(List<Spectre> spectres)
 	{

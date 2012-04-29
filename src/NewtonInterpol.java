@@ -11,8 +11,6 @@ public class NewtonInterpol {
 		double valeur[][] = new double [nbPoint][nbPoint+1];
 		double coef[] = new double [nbPoint];
 		
-		System.out.println("nbPoint  - "+ nbPoint);
-		
 		for(int i = 0 ; i < nbPoint ; i++)
 		{
 			valeur[i][0] = points.get(i).getY();
@@ -29,7 +27,6 @@ public class NewtonInterpol {
 		for(int i = 0 ; i < nbPoint ; i++)
 		{
 			coef[i] = valeur[0][i];
-			//System.out.println("a" + i + " = " + coef[i]);
 		}
 		
 		List<Point> pointsPoly = new ArrayList<Point>();

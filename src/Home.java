@@ -1,5 +1,3 @@
-
-
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,7 +10,6 @@ import javax.swing.JPanel;
 
 public class Home extends JFrame implements ITableauFrequenceValue
 {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel courbePanel;
 
@@ -25,9 +22,9 @@ public class Home extends JFrame implements ITableauFrequenceValue
 	public void setTabFrequenceValue(int values[][])
 	{
 		List<Spectre> spectres = new ArrayList<Spectre>();
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < values.length ; i++)
 		{
-			Spectre spectre = new Spectre(values[i], 9);
+			Spectre spectre = new Spectre(values[i], values[i].length);
 			spectres.add(spectre);
 		}
 		interpolSpectre(spectres);
